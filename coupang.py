@@ -12,9 +12,14 @@ products = []
 for product in soup.select('#productList > li'):
     products.append([
         product.select_one('li > a > dl > dd > div.name').text.strip(),
-        product.select_one('li > a > dl > dd > div.price-area > div > div.price > em > strong').text,
-        product.select_one('li > a > dl > dd > div.price-area > div > div:nth-child(3) > span.badge.falcon > img'),
-        product.select_one('li > a > dl > dd > div.other-info > div > span.rating-total-count').text
+        int(product.select_one(
+            'li > a > dl > dd > div.price-area > div > div.price > em > strong')
+            .text.strip().replace(',', '')),
+        bool(product.select_one(
+            'li > a > dl > dd > div.price-area > div > div:nth-child(3) > span.badge.falcon > img')),
+        int(product.select_one(
+            'li > a > dl > dd > div.other-info > div > span.rating-total-count')
+            .text.strip()[1:-1])
     ])
 
 
