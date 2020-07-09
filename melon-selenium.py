@@ -12,6 +12,7 @@ import requests
 def save_to_csv(tabular_data=[], file_name='naname.csv'):
     df = pd.DataFrame(tabular_data)
     df.to_csv(file_name, index=False)
+    df.to_excel('melon.xlsx', index=False)
     print('save ok..')
 
 
@@ -45,7 +46,7 @@ def parse_page_and_return_soup(page, browser):
         soup = BeautifulSoup(html, 'html.parser')
         return soup
     else:
-        time.sleep(1)
+        time.sleep(2)
         print('page: ' + str(page) + ' parsing')
         browser.\
             find_element(By.CSS_SELECTOR,
